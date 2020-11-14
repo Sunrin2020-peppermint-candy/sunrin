@@ -22,12 +22,12 @@ root.resizable(False, False)
 
 
 Label_stuff= Label(root, text = "물건챙김 알리미",
-               font = ("Consolas", 40))
+               font = ("나눔스퀘어 ExtraBold", 40))
 Label_stuff.place(relx=0.5, rely= 0.15, anchor='center')
 
 Mode_setting = 1
-Mode = Label(root, text = "MODE = 기본설정",
-               font = ("Consolas", 15))
+Mode = Label(root, text = "MODE: 기본설정",
+               font = ("나눔스퀘어", 15))
 Mode.place(relx=0.5, rely= 0.9, anchor='center')
 
 def gotoScanPage():
@@ -50,8 +50,8 @@ def gotoScanPage():
     print(have_to_take_now)
 
     detected.place(relx=0.5, rely= 0.2, anchor='center')
-    Mode.place(relx=0.5, rely= 0.9, anchor='center')
     hasnt_take.place(relx=0.5, rely= 0.6, anchor='center')
+    hasnt_take_items.place(relx=0.5, rely= 0.7, anchor='center')
     goHome.place(relx=0.5, rely= 0.9, anchor='center')
 
     global is_continue_od
@@ -61,6 +61,7 @@ def gotoScanPage():
 def gotoHomePage():
     detected.place_forget()
     hasnt_take.place_forget()
+    hasnt_take_items.place_forget()
     goHome.place_forget()
 
     global is_continue_od
@@ -71,35 +72,36 @@ def gotoHomePage():
     Study_settings.place(relx=0.5, rely= 0.4, anchor='center')
     PC_room_setting.place(relx=0.5, rely= 0.5, anchor='center')
     SCAN.place(relx=0.5, rely= 0.7, anchor='center')
+    Mode.place(relx=0.5, rely= 0.9, anchor='center')
 
 def Mode_Basic_setting():
-    Mode.config(text="MODE = 기본설정")
+    Mode.config(text="MODE: 기본설정")
     global Mode_setting
     Mode_setting = 1
 
 def Mode_Study_settings():
-    Mode.config(text="MODE = 공부용 설정")
+    Mode.config(text="MODE: 공부용 설정")
     global Mode_setting
     Mode_setting = 2
 
 def Mode_PC_room_setting():
-    Mode.config(text="MODE = PC방용 설정")
+    Mode.config(text="MODE: PC방용 설정")
     global Mode_setting
     Mode_setting = 3
 
 global Basic_setting
 Basic_setting = Button(root, text = "기본 설정", # 핸드폰, 날씨
-               font = ("한컴 고딕", 20), command= Mode_Basic_setting)
+               font = ("나눔스퀘어", 20), command= Mode_Basic_setting)
 Basic_setting.place(relx=0.5, rely= 0.3, anchor='center')
 
 global Study_settings
 Study_settings = Button(root, text = "공부용 설정", # 핸드폰, 날씨, 배낭 가방
-               font = ("한컴 고딕", 20), command= Mode_Study_settings)
+               font = ("나눔스퀘어", 20), command= Mode_Study_settings)
 Study_settings.place(relx=0.5, rely= 0.4, anchor='center')
 
 global PC_room_setting
 PC_room_setting = Button(root, text = "PC방용 설정", # 핸드폰, 날씨, 지갑
-               font = ("한컴 고딕", 20), command= Mode_PC_room_setting)
+               font = ("나눔스퀘어", 20), command= Mode_PC_room_setting)
 PC_room_setting.place(relx=0.5, rely= 0.5, anchor='center')
 
 scan_img = Image.open("icon.jpg")
@@ -107,15 +109,17 @@ scan_photo = ImageTk.PhotoImage(scan_img)
 
 global SCAN
 SCAN = Button(root, image=scan_photo,
-               font = ("Consolas", 40), command=gotoScanPage)
+               font = ("나눔스퀘어", 40), command=gotoScanPage)
 SCAN.place(relx=0.5, rely= 0.7, anchor='center')
 
 global goHome
 goHome = Button(root, text = "돌아가기",
-               font = ("Consolas", 40), command=gotoHomePage)
+               font = ("나눔스퀘어", 20), command=gotoHomePage)
 
-hasnt_take = Label(root, text = "챙기지 않은 물건",
-               font = ("Consolas", 15))
+hasnt_take = Label(root, text = "챙기지 않은 물건이 있습니다!",
+               font = ("나눔스퀘어 Bold", 15))
+hasnt_take_items = Label(root, text = "챙기지 않은 물건",
+               font = ("나눔스퀘어", 15))
 
 global detected
 detected = Label(root, width=600, height=600)
@@ -140,9 +144,10 @@ def videoCapture():
             dont_take.append(item)
     if len(dont_take) == 0:
         hasnt_take.configure(text='모든 물건을 챙겼습니다!')
+        hasnt_take_items.configure(text='')
     else:
-        msg = '다음 물건들을 챙기지 않았습니다!\n' + ', '.join(dont_take)
-        hasnt_take.configure(text=msg)
+        hasnt_take.configure(text='다음 물건들을 챙기지 않았습니다!\n')
+        hasnt_take_items.configure(text=', '.join(dont_take))
     
     if is_continue_od:
         root.after(10, videoCapture)
