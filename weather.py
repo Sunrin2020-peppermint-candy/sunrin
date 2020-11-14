@@ -61,6 +61,10 @@ def getVilageFcst(date, time, nx, ny):
 
   return result
 
+def is_umbrella_required():
+  result = getVilageFcst(getTodayDate(), getNearTime(), 61, 121)
+  return int(result['POP']['value']) > 50
+
 def getTodayDate():
   return datetime.date.today().strftime('%Y%m%d')
 
@@ -95,5 +99,7 @@ def getNearTime():
 
 if __name__ == "__main__":
   getVilageFcst(getTodayDate(), getNearTime(), 61, 129)
+
+  print(is_umbrella_required())
 
   print('현재 공개된 가장 최근의 시간코드:', getNearTime())
