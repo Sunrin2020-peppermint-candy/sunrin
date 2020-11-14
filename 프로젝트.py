@@ -1,10 +1,43 @@
 from tkinter import *
 
+from PIL import ImageTk
+from PIL import Image
+
+from scan import scan_func
+
+import cv2
+
+cap = cv2.VideoCapture(0)
+
 root = Tk()
 root.title("물건 챙김 알리미")
 root.geometry("600x900")
 root.resizable(False, False)
 
+have_to_take = ['person', 'cell phone']
+
+def videoCapture():
+    ret, frame = cap.read()
+    (image_np, detected_item) = scan_func(ret, frame)
+    image = Image.fromarray(image_np)
+    imgtk = ImageTk.PhotoImage(image=image)
+
+    detected.config(image=imgtk)
+    detected.image = imgtk
+
+    detected_list.configure(text=', '.join(detected_item))
+
+    dont_take = []
+
+    for item in have_to_take:
+        if item not in detected_item:
+            dont_take.append(item)
+    if len(dont_take) == 0:
+        detected_list.configure(text='모든 물건을 챙겼음')
+    else:
+        detected_list.configure(text=', '.join(dont_take))
+    
+    root.after(10, videoCapture)
 
 def Basic_setting():
     Label1.destroy()
@@ -19,6 +52,17 @@ def Basic_setting():
                font = ("Consolas", 50))
     SCAN.place(relx=0.5, rely= 0.5, anchor='center')
 
+    global detected
+    detected = Label(root, width=600, height=600)
+    detected.place(relx=0.5, rely= 0.2, anchor='center')
+    global detected_list
+    detected_list = Label(root, text = "챙긴물건",
+                                font = ("한컴 고딕", 30))
+    
+    detected_list.place(relx=0.5, rely= 0.5, anchor='center')
+
+    videoCapture()
+ 
     
 def Study_settings():
     Label1.destroy()
