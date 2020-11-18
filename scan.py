@@ -20,7 +20,7 @@ from object_detection.utils import label_map_util
 from object_detection.utils import visualization_utils as viz_utils
 
 PATH_TO_SAVED_MODEL = (
-    "data/models/ssd_resnet50_v1_fpn_640x640_coco17_tpu-8" + "/saved_model"
+    "data/models/my_ssd_model" + "/saved_model"
 )
 
 print("Loading model...")
@@ -35,7 +35,7 @@ print("Done! Took {} seconds".format(elapsed_time))
 
 # Load Label map
 category_index = label_map_util.create_category_index_from_labelmap(
-    "data/mscoco_label_map.pbtxt", use_display_name=True
+    "data/label_map.pbtxt", use_display_name=True
 )
 
 import cv2

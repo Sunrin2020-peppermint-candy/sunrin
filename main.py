@@ -10,9 +10,9 @@ from scan import scan_func
 import cv2
 
 MODE = {
-    1: {"name": "기본 설정", "items": ["face_mask", "cell phone"]},
-    2: {"name": "공부용 설정", "items": ["face_mask", "cell phone", "backpack"]},
-    3: {"name": "PC방용 설정", "items": ["face_mask", "cell phone", "wallet"]},
+    1: {"name": "기본 설정", "items": ["face mask", "cell phone"]},
+    2: {"name": "공부용 설정", "items": ["face mask", "cell phone", "backpack"]},
+    3: {"name": "PC방용 설정", "items": ["face mask", "cell phone", "wallet"]},
 }
 
 root = Tk()

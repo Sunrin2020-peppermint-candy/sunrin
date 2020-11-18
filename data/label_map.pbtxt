@@ -1,0 +1,29 @@
+item {
+    id: 1
+    name: "face mask"
+}
+
+item {
+    id: 2
+    name: "umbrella"
+}
+
+item {
+    id: 3,
+    name: "cap"
+}
+
+item {
+    id: 4,
+    name: "cell phone"
+}
+
+item {
+    id: 5,
+    name: "bag"
+}
+
+item {
+    id: 6,
+    name: "wallet"
+}

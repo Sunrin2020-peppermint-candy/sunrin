@@ -39,8 +39,6 @@ def getVilageFcst(date, time, nx, ny):
         )
     )
 
-    # print(requestUrl)
-
     r = requests.get(requestUrl)
 
     result = r.json()["response"]
@@ -66,22 +64,18 @@ def getVilageFcst(date, time, nx, ny):
             result["body"]["items"]["item"],
         )
     )
-    print(result)
 
-    print()
+    return result
 
+def print_useful_data(result):
     print("강수 확률:", result["POP"]["value"])
     print("강수 형태:", PTY_CODE[result["PTY"]["value"]])
-
     print("하늘 상태:", SKY_CODE[result["SKY"]["value"]])
-
     print(
         "풍속:",
         result.get("VVV", NULL_DATA).get("value"),
         result.get("UUU", NULL_DATA).get("value"),
     )
-
-    return result
 
 
 def is_umbrella_required():
@@ -124,7 +118,9 @@ def getNearTime():
 
 
 if __name__ == "__main__":
-    getVilageFcst(getTodayDate(), getNearTime(), 61, 129)
+    result = getVilageFcst(getTodayDate(), getNearTime(), 61, 129)
+
+    print_useful_data(result)
 
     print(is_umbrella_required())
 
