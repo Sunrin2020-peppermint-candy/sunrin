@@ -11,7 +11,7 @@ import cv2
 
 MODE = {
     1: {"name": "기본 설정", "items": ["face mask", "cell phone"]},
-    2: {"name": "공부용 설정", "items": ["face mask", "cell phone", "backpack"]},
+    2: {"name": "공부용 설정", "items": ["face mask", "cell phone", "bag"]},
     3: {"name": "PC방용 설정", "items": ["face mask", "cell phone", "wallet"]},
 }
 
@@ -41,7 +41,7 @@ def gotoScanPage():
     cap = cv2.VideoCapture(0)
 
     global have_to_take_now
-    have_to_take_now = MODE[mode_setting]["items"]
+    have_to_take_now = MODE[mode_setting]["items"].copy()
     if weather.is_umbrella_required():
         have_to_take_now.append("umbrella")
 
